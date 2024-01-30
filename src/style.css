@@ -1,7 +1,13 @@
+@font-face {
+  font-family: lvfont;
+  src: url(../font/Intrepid.ttf);
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: lvfont;
 }
 
 .main {
@@ -14,18 +20,26 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: #333;
+  /* background: #333; */
+  background: rgba(0, 0, 0, 0.2);
+  /* background-image: linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.35),
+    rgba(0, 0, 255, 0.35)
+  ); */
   color: white;
   margin-bottom: 100px;
   position: relative;
-  height: 60vh;
+  height: 85vh;
   overflow: hidden;
 }
 
 .heroVid {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   min-width: 100%;
   min-height: 100%;
+  z-index: -1;
 }
