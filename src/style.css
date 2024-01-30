@@ -43,3 +43,23 @@
   min-height: 100%;
   z-index: -1;
 }
+
+.link-text {
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+.link-text:after {
+  content: "";
+  position: absolute;
+  background-color: black;
+  height: 3px;
+  width: 0%;
+  left: 0;
+  bottom: 5px;
+  transition: 0.3s;
+}
+
+.link-text:hover:after {
+  width: 95%;
+}
