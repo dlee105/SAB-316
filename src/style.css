@@ -1,9 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .main {
   height: 100%;
   width: 100%;
 }
 
 .top-img-header {
-  max-height: 1400px;
-  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #333;
+  color: white;
+  margin-bottom: 100px;
+  position: relative;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.heroVid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
