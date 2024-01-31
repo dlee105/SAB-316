@@ -5,13 +5,14 @@
 //General Els
 let fixedNavBar = document.getElementById("fixed-nav");
 let headerLinks = document.getElementsByClassName("nav-link");
-let rightNavLinkContent = document.getElementsByClassName("nav-link-content");
+let rightNavLinkContent = document.getElementById("nav-link-cont");
 //-----------------------------------------------------------------------------//
 //Nav Links Els
 //Right Links
 let contactLinkEl = document.getElementById("contact");
 let notificationLinkEl = document.getElementById("notification");
 let myPershLinkEl = document.getElementById("myPersh");
+let rightFormCloseBtn = document.getElementById("closebtn");
 //Left Links
 let menLinkEl = document.getElementById("menNavLink");
 let womenLinkEl = document.getElementById("womenNavLink");
@@ -26,44 +27,77 @@ myPershLinkEl.addEventListener("click", handleMyPerschLink);
 
 function handleContactLink(event) {
   event.preventDefault();
-  console.log(event.target);
-  let content = document.createElement("div");
-
-  rightNavLinkContent.appendChild(content);
+  rightNavLinkContent.style.zIndex = 1031;
+  clearRightNavContent();
+  //console.log(event.target);
+  createRightNavLinkHeader("<h5>Contact Us</h5>");
 }
 
 function handleNotificationLink(event) {
   event.preventDefault();
-  console.log(event.target);
+  rightNavLinkContent.style.zIndex = 1031;
+  clearRightNavContent();
+  createRightNavLinkHeader("<h4>Notifications</h4>");
+  //console.log(event.target);
 }
 function handleMyPerschLink(event) {
   event.preventDefault();
+  rightNavLinkContent.style.zIndex = 1031;
+  clearRightNavContent();
+  createRightNavLinkHeader("<h4>Access your account</h4>");
 
-  let content = document.createElement("div");
-  let boxheader = document.createElement("div");
-  let loginText = document.createElement("p");
-  let closeBtn = document.createElement("button");
-  //CSS
-  closeBtn.type = "button";
-  closeBtn.classList.add("btn-close");
-  closeBtn.ariaLabel = "Close";
+  //console.log(rightNavLinkContent[0]);
+}
+rightNavLinkContent.addEventListener("click", handleRightFormClose);
+function handleRightFormClose(event) {
+  event.preventDefault();
 
-  loginText.innerText = "Login";
-  boxheader.appendChild(loginText);
-  boxheader.appendChild(closeBtn);
-  content.appendChild(boxheader);
-
-  let bootstrapClass = ["d-flex"];
-  content.classList.add(...bootstrapClass);
-  content.style.width = "100%";
-
-  rightNavLinkContent[0].appendChild(content);
-  console.log(rightNavLinkContent[0]);
+  //console.log(event.target.id);
+  if (event.target.id === "closebtn") {
+    console.log("closing");
+    rightNavLinkContent.style.zIndex = -2;
+  } else {
+    return;
+  }
+  // rightNavLinkContent.style.zIndex = -1;
 }
 
 // <----------------------------------------------//
 
-console.log(fixedNavBar);
+//console.log(fixedNavBar);
+
+// Helper functions
+function clearRightNavContent() {
+  while (rightNavLinkContent.firstElementChild) {
+    rightNavLinkContent.firstElementChild.remove();
+  }
+}
+
+function createRightNavLinkHeader(headerText) {
+  let content = document.createElement("div");
+  let headerRow = document.createElement("div");
+  headerRow.classList.add("row");
+  //
+  let headerLeft = document.createElement("div");
+  headerLeft.classList.add(...["col", "d-flex", "justify-content-start"]);
+  headerLeft.innerHTML = headerText;
+  headerLeft.style.paddingLeft = "50px";
+  //"<h4>Access your account</h4>"
+  let headerRight = document.createElement("div");
+  headerRight.classList.add(...["col", "d-flex", "justify-content-end"]);
+  let closeBtn = document.createElement("button");
+  closeBtn.id = "closebtn";
+  closeBtn.type = "button";
+  closeBtn.classList.add("btn-close");
+  closeBtn.style.paddingRight = "50px";
+  closeBtn.ariaLabel = "Close";
+  headerRight.appendChild(closeBtn);
+  //
+  headerRow.appendChild(headerLeft);
+  headerRow.appendChild(headerRight);
+  content.appendChild(headerRow);
+  rightNavLinkContent.appendChild(content);
+}
 
 // Handler Functions
 function handleBackgroundEffectEnter(event) {
