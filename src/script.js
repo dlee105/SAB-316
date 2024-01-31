@@ -1,8 +1,67 @@
 // https://www.canva.com/design/DAFrivz5SU8/iMU_mM_m1Ecy86yalZmQCQ/view
+// PROJECT HEAVILY INSPIRED BY LOUISVUITTON'S WEBSITE :)
 
 // Element queries
-const fixedNavBar = document.getElementById("fixed-nav");
-const headerLinks = document.querySelectorAll("a");
+//General Els
+let fixedNavBar = document.getElementById("fixed-nav");
+let headerLinks = document.getElementsByClassName("nav-link");
+let rightNavLinkContent = document.getElementsByClassName("nav-link-content");
+//-----------------------------------------------------------------------------//
+//Nav Links Els
+//Right Links
+let contactLinkEl = document.getElementById("contact");
+let notificationLinkEl = document.getElementById("notification");
+let myPershLinkEl = document.getElementById("myPersh");
+//Left Links
+let menLinkEl = document.getElementById("menNavLink");
+let womenLinkEl = document.getElementById("womenNavLink");
+let kidsLinkEl = document.getElementById("kidsNavLink");
+//-----------------------------------------------------------------------------//
+
+// PLAYGROUND ------------------------------------->
+// write new code here then transfer below later
+contactLinkEl.addEventListener("click", handleContactLink);
+notificationLinkEl.addEventListener("click", handleNotificationLink);
+myPershLinkEl.addEventListener("click", handleMyPerschLink);
+
+function handleContactLink(event) {
+  event.preventDefault();
+  console.log(event.target);
+  let content = document.createElement("div");
+
+  rightNavLinkContent.appendChild(content);
+}
+
+function handleNotificationLink(event) {
+  event.preventDefault();
+  console.log(event.target);
+}
+function handleMyPerschLink(event) {
+  event.preventDefault();
+
+  let content = document.createElement("div");
+  let boxheader = document.createElement("div");
+  let loginText = document.createElement("p");
+  let closeBtn = document.createElement("button");
+  //CSS
+  closeBtn.type = "button";
+  closeBtn.classList.add("btn-close");
+  closeBtn.ariaLabel = "Close";
+
+  loginText.innerText = "Login";
+  boxheader.appendChild(loginText);
+  boxheader.appendChild(closeBtn);
+  content.appendChild(boxheader);
+
+  let bootstrapClass = ["d-flex"];
+  content.classList.add(...bootstrapClass);
+  content.style.width = "100%";
+
+  rightNavLinkContent[0].appendChild(content);
+  console.log(rightNavLinkContent[0]);
+}
+
+// <----------------------------------------------//
 
 console.log(fixedNavBar);
 
