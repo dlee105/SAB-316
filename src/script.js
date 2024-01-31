@@ -30,7 +30,10 @@ myPershLinkEl.addEventListener("click", handleMyPerschLink);
 function handleContactLink(event) {
   event.preventDefault();
   rightNavLinkContent.style.zIndex = 1032;
+  rightNavLinkContent.style.width = "100%";
   backdropEl.style.zIndex = 1031;
+  backdropEl.style.width = "100%";
+  backdropEl.style.height = "100%";
   clearRightNavContent();
   //console.log(event.target);
   createRightNavLinkHeader("<h5>Contact Us</h5>");
@@ -39,7 +42,11 @@ function handleContactLink(event) {
 function handleNotificationLink(event) {
   event.preventDefault();
   rightNavLinkContent.style.zIndex = 1032;
+  rightNavLinkContent.style.width = "100%";
   backdropEl.style.zIndex = 1031;
+  backdropEl.style.width = "100%";
+  backdropEl.style.height = "100%";
+
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Notifications</h4>");
   //console.log(event.target);
@@ -47,13 +54,18 @@ function handleNotificationLink(event) {
 function handleMyPerschLink(event) {
   event.preventDefault();
   rightNavLinkContent.style.zIndex = 1032;
+  rightNavLinkContent.style.width = "100%";
   backdropEl.style.zIndex = 1031;
+  backdropEl.style.width = "100%";
+  backdropEl.style.height = "100%";
+
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
 
   //console.log(rightNavLinkContent[0]);
 }
 rightNavLinkContent.addEventListener("click", handleRightFormClose);
+
 function handleRightFormClose(event) {
   event.preventDefault();
 
@@ -61,7 +73,9 @@ function handleRightFormClose(event) {
   if (event.target.id === "closebtn") {
     console.log("closing");
     rightNavLinkContent.style.zIndex = -2;
-    backdropEl.style.zIndex = -2;
+    rightNavLinkContent.style.width = "0";
+    backdropEl.style.width = "0%";
+    backdropEl.style.height = "0%";
   } else {
     return;
   }
@@ -70,11 +84,14 @@ function handleRightFormClose(event) {
 
 function handleClickOutside(event) {
   event.preventDefault();
+  console.log(event.target);
 
   if (event.target.id !== "nav-link-cont" && event.target.id === "backdrop") {
     console.log(event.target);
     rightNavLinkContent.style.zIndex = -2;
-    backdropEl.style.zIndex = -2;
+    rightNavLinkContent.style.width = "0";
+    backdropEl.style.width = "0%";
+    backdropEl.style.height = "0%";
   }
 }
 
@@ -139,7 +156,8 @@ function handleBackgroundEffectEnter(event) {
 function handleBackgroundEffectExit(event) {
   event.preventDefault();
   //console.log(event.target.id);
-  if (event.target.id === "fixed-nav") {
+  console.log(window.scrollY);
+  if (event.target.id === "fixed-nav" && window.scrollY == 0) {
     //console.log("exit");
     fixedNavBar.style.transition = "all 0.5s ease-out allow-discrete";
     fixedNavBar.style.backgroundColor = "transparent";
@@ -152,7 +170,34 @@ function handleBackgroundEffectExit(event) {
   }
 }
 
+function handleFixNavScroll(event) {
+  event.preventDefault();
+  //console.log(1);
+  if (window.scrollY > 0) {
+    fixedNavBar.style.transition = "all 0.5s ease-out allow-discrete";
+    fixedNavBar.style.backgroundColor = "white";
+    fixedNavBar.style.color = "black";
+    fixedNavBar.style.borderBottom = "0.2px solid black";
+    for (let link of headerLinks) {
+      //   console.log(link);
+      link.classList.remove("link-light");
+      link.classList.add("link-dark");
+    }
+  } else {
+    fixedNavBar.style.transition = "all 0.5s ease-out allow-discrete";
+    fixedNavBar.style.backgroundColor = "transparent";
+    fixedNavBar.style.color = "white";
+    fixedNavBar.style.borderBottom = "none";
+    for (let link of headerLinks) {
+      // console.log(link);
+      link.classList.add("link-light");
+      link.classList.remove("link-dark");
+    }
+  }
+}
+
 // Adding Listeners
 
 fixedNavBar.addEventListener("mouseenter", handleBackgroundEffectEnter);
 fixedNavBar.addEventListener("mouseleave", handleBackgroundEffectExit);
+window.addEventListener("scroll", handleFixNavScroll);
