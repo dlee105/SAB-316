@@ -3,9 +3,11 @@
 
 // Element queries
 //General Els
+let allcontent = document.querySelector("main");
 let fixedNavBar = document.getElementById("fixed-nav");
 let headerLinks = document.getElementsByClassName("nav-link");
 let rightNavLinkContent = document.getElementById("nav-link-cont");
+let backdropEl = document.getElementById("backdrop");
 //-----------------------------------------------------------------------------//
 //Nav Links Els
 //Right Links
@@ -27,7 +29,8 @@ myPershLinkEl.addEventListener("click", handleMyPerschLink);
 
 function handleContactLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1031;
+  rightNavLinkContent.style.zIndex = 1032;
+  backdropEl.style.zIndex = 1031;
   clearRightNavContent();
   //console.log(event.target);
   createRightNavLinkHeader("<h5>Contact Us</h5>");
@@ -35,14 +38,16 @@ function handleContactLink(event) {
 
 function handleNotificationLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1031;
+  rightNavLinkContent.style.zIndex = 1032;
+  backdropEl.style.zIndex = 1031;
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Notifications</h4>");
   //console.log(event.target);
 }
 function handleMyPerschLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1031;
+  rightNavLinkContent.style.zIndex = 1032;
+  backdropEl.style.zIndex = 1031;
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
 
@@ -56,11 +61,24 @@ function handleRightFormClose(event) {
   if (event.target.id === "closebtn") {
     console.log("closing");
     rightNavLinkContent.style.zIndex = -2;
+    backdropEl.style.zIndex = -2;
   } else {
     return;
   }
   // rightNavLinkContent.style.zIndex = -1;
 }
+
+function handleClickOutside(event) {
+  event.preventDefault();
+
+  if (event.target.id !== "nav-link-cont" && event.target.id === "backdrop") {
+    console.log(event.target);
+    rightNavLinkContent.style.zIndex = -2;
+    backdropEl.style.zIndex = -2;
+  }
+}
+
+allcontent.addEventListener("click", handleClickOutside);
 
 // <----------------------------------------------//
 
@@ -88,7 +106,7 @@ function createRightNavLinkHeader(headerText) {
   let closeBtn = document.createElement("button");
   closeBtn.id = "closebtn";
   closeBtn.type = "button";
-  closeBtn.classList.add("btn-close");
+  closeBtn.classList.add(...["shadow-none", "btn-close"]);
   closeBtn.style.paddingRight = "50px";
   closeBtn.ariaLabel = "Close";
   headerRight.appendChild(closeBtn);
