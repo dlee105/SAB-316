@@ -31,6 +31,7 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
+
   z-index: 0;
 }
 
@@ -64,7 +65,7 @@
   width: 95%;
 }
 
-.nav-link-content {
+.nav-link-content-r {
   height: 100vh;
   max-width: 500px;
   background-color: rgba(255, 255, 255, 1);
@@ -75,6 +76,17 @@
   top: 0;
 
   /* boostrap fixed z-index value is 1030 */
+}
+.nav-link-content-l {
+  height: 50vh;
+  max-width: 800px;
+  max-height: 50vh;
+  background-color: rgba(255, 255, 255, 1);
+  transition: width 0.5s ease-in-out;
+  position: fixed;
+  left: 0;
+  z-index: -2; /* set to -2 after implement//set to 1300 for testing */
+  top: 60px;
 }
 
 .hero-div {
@@ -109,4 +121,17 @@
   background-color: rgba(0, 0, 0, 0.8);
   z-index: -100;
   position: fixed;
+}
+
+.logo {
+  z-index: 2000;
+  position: absolute;
+  right: 50%;
+}
+
+@media screen and (max-width: 900px) {
+  .logo {
+    position: relative;
+    right: 0;
+  }
 }
