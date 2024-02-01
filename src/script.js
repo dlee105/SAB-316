@@ -4,25 +4,26 @@
 // Requirement Checklists
 // I've wrote down some comments
 // to help you guys with finding
-// specific location of each
+// the specific locations of each
 // scoring requirements
 
-// use ctrl+f to filter out each req
+// use ctrl+f to filter out each requirement *I misspelled req for reg :)*
 
-// Reg1
-// Reg2
-// Reg3
-// Reg4
-// Reg5
-// Reg6
-// Reg7
-// Reg8
-// Reg9
-// RegA
-// RegB
-// RegC
-// RegD
-// RegE
+// Reg1 - Cache at least one element using selectElementById.
+// Reg2 - Cache at least one element using querySelector or querySelectorAll.
+// Reg3 - Use the parent-child-sibling relationship to navigate between elements at least once (firstChild, lastChild, parentNode, nextElementSibling, etc.).
+// Reg4 - Iterate over a collection of elements to accomplish some task.
+// Reg5 - Create at least one element using createElement.
+// Reg6 - Use appendChild and/or prepend to add new elements to the DOM.
+// Reg7 - Use the DocumentFragment interface or HTML templating with the cloneNode method to create templated content.
+// Reg8 - Modify the HTML or text content of at least one element in response to user interaction using innerHTML, innerText, or textContent.
+// Reg9 - Modify the style and/or CSS classes of an element in response to user interactions using the style or classList properties.
+// RegA - Modify at least one attribute of an element in response to user interaction.
+// RegB - Register at least two different event listeners and create the associated event handler functions.
+// RegC - Use at least two Browser Object Model (BOM) properties or methods.
+// (incomplete) RegD - Include at least one form and/or input with HTML attribute validation.
+// (incomplete) RegE - Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
+// https://www.w3schools.com/js/js_validation.asp
 
 // JSONs
 const menLeftData = [
@@ -179,8 +180,8 @@ function createRightNavLinkHeader(headerText) {
   //
   let headerLeft = document.createElement("div");
   headerLeft.classList.add(...["col", "d-flex", "justify-content-start"]);
-  headerLeft.innerHTML = headerText; //Reg7
-  headerLeft.style.paddingLeft = "50px";
+  headerLeft.innerHTML = headerText; //
+  headerLeft.style.paddingLeft = "50px"; //Reg9 (ctrl+f ".style")
   //"<h4>Access your account</h4>"
   let headerRight = document.createElement("div");
   headerRight.classList.add(...["col", "d-flex", "justify-content-end"]);
@@ -278,7 +279,7 @@ function rightLinkFormClose() {
 
 function buildDocFrag(data, target) {
   // helper
-  let docFrag = document.createDocumentFragment();
+  let docFrag = document.createDocumentFragment(); //Reg7
   let contentBox = document.createElement("div");
   contentBox.classList.add(...["container", "h-100"]);
   let mainRow = document.createElement("div");
@@ -293,13 +294,13 @@ function buildDocFrag(data, target) {
     unorderedList.style.padding = "0";
     col.classList.add("col");
     colHeader.classList.add(...["text-start", "pt-3"]);
-    colHeader.innerHTML = `<h5><strong>${obj.title}</strong></h5>`;
+    colHeader.innerHTML = `<h5><strong>${obj.title}</strong></h5>`; // Reg8
     col.appendChild(colHeader);
 
     for (const op of obj.options) {
       let section = document.createElement("li");
       let link = document.createElement("a");
-      link.setAttribute("href", op.href);
+      link.setAttribute("href", op.href); //RegA
       link.textContent = op.linkName;
       link.classList.add(
         ...[
@@ -367,6 +368,7 @@ function buildLeftFormFooter(target) {
 }
 
 function isDescendant(parent, child) {
+  // reg3
   var node = child.parentNode;
   //console.log(node);
   let c = 1;
@@ -382,7 +384,7 @@ function isDescendant(parent, child) {
   return false;
 }
 
-// Handler Functions
+// Handler Functions //RegB
 //*********************************************************** */
 //*********************************************************** */
 //*********************************************************** */
@@ -400,6 +402,7 @@ function handleBackgroundEffectEnter(event) {
 function handleBackgroundEffectExit(event) {
   event.preventDefault();
   if (!leftNavLinkContent.classList.contains("on") && window.scrollY === 0) {
+    //RegC
     fixedNavTransform("close");
   }
 }
@@ -552,7 +555,7 @@ function handleKidsLink(event) {
   //leftNavLinkContent.appendChild(buildLeftFormFooter("Kids'"));
 }
 
-// Adding Listeners
+// Adding Listeners //RegB
 //*********************************************************** */
 //*********************************************************** */
 //*********************************************************** */
