@@ -143,7 +143,31 @@ let kidsLinkEl = document.getElementById("kidsNavLink");
 
 // write new code here then transfer below later {}
 
-function buildRightFormAccount() {
+function buildRightFormReg() {
+  let docFrag = document.createDocumentFragment();
+  let regCard = document.createElement("div");
+  let innerCardBox = document.createElement("div");
+  let cardTitle = document.createElement("h2");
+  let cardSubTitle = document.createElement("p");
+
+  //
+  regCard.classList.add(...["card-body", "px-5", "text-start"]);
+  innerCardBox.classList.add(...["mb-md-5", "mt-md-4", "pb-0"]);
+  cardTitle.classList.add(...["fw-bold", "mb-2", "text-uppercase", "mt-2"]);
+  cardTitle.textContent = "Register";
+  cardSubTitle.classList.add(...["text-dark", "mb-3"]);
+  cardSubTitle.innerText =
+    "Don't have an account? Register below with your email";
+
+  //
+  innerCardBox.appendChild(cardTitle);
+  innerCardBox.appendChild(cardSubTitle);
+  regCard.appendChild(innerCardBox);
+  docFrag.appendChild(regCard);
+  return docFrag;
+}
+
+function buildRightFormLogin() {
   // creating element query
   let docFrag = document.createDocumentFragment();
   let loginCard = document.createElement("div");
@@ -190,14 +214,9 @@ function buildRightFormAccount() {
   loginBox.classList.add(...["form-outline", "form-white", "mb-0"]);
   passwordBox.classList.add(...["form-outline", "form-white", "mb-0"]);
   loginBtnRow.classList.add(
-    "row",
-    "d-flex",
-    "justity-content-center",
-    "mx-5",
-    "mt-2",
-    "mb-3"
+    ...["row", "d-flex", "justity-content-center", "mx-5", "mt-2", "mb-3"]
   );
-  loginBtn.classList.add("login-btn");
+  loginBtn.classList.add(...["login-btn"]);
   loginCard.classList.add(...["border-bottom"]);
   // setting attributes & text
   inputL.type = "email";
@@ -280,7 +299,9 @@ function createRightNavLinkHeader(headerText) {
   content.classList.add(...["pb-3"]);
   //
   let headerLeft = document.createElement("div");
-  headerLeft.classList.add(...["col-8", "d-flex", "justify-content-start"]);
+  headerLeft.classList.add(
+    ...["col-8", "d-flex", "justify-content-start", "text-uppercase"]
+  );
   headerLeft.innerHTML = headerText; //
   headerLeft.style.paddingLeft = "50px"; //Reg9 (ctrl+f ".style")
   //"<h4>Access your account</h4>"
@@ -528,7 +549,12 @@ function handleMyPerschLink(event) {
   rightLinksFormOpen();
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
-  rightNavLinkContent.appendChild(buildRightFormAccount());
+  let loginForm = document.createElement("form");
+  let registerForm = document.createElement("form");
+  loginForm.appendChild(buildRightFormLogin());
+  registerForm.appendChild(buildRightFormReg());
+  rightNavLinkContent.appendChild(loginForm);
+  rightNavLinkContent.appendChild(registerForm);
 
   //console.log(rightNavLinkContent[0]);
 }
