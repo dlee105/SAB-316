@@ -20,7 +20,7 @@
 // Reg9 - Modify the style and/or CSS classes of an element in response to user interactions using the style or classList properties.
 // RegA - Modify at least one attribute of an element in response to user interaction.
 // RegB - Register at least two different event listeners and create the associated event handler functions.
-// RegC - Use at least two Browser Object Model (BOM) properties or methods.
+// (incomplete) RegC - Use at least two Browser Object Model (BOM) properties or methods.
 // (incomplete) RegD - Include at least one form and/or input with HTML attribute validation.
 // (incomplete) RegE - Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
 // https://www.w3schools.com/js/js_validation.asp
@@ -143,6 +143,105 @@ let kidsLinkEl = document.getElementById("kidsNavLink");
 
 // write new code here then transfer below later {}
 
+function buildRightFormAccount() {
+  // creating element query
+  let docFrag = document.createDocumentFragment();
+  let loginCard = document.createElement("div");
+  let innerCardBox = document.createElement("div");
+  let cardTitle = document.createElement("h2");
+  let cardSubTitle = document.createElement("p");
+  let loginBox = document.createElement("div");
+  let inputL = document.createElement("input");
+  let labelL = document.createElement("label");
+  let passwordBox = document.createElement("div");
+  let inputP = document.createElement("input");
+  let labelP = document.createElement("label");
+  let loginOptions = document.createElement("div");
+  let rememberMe = document.createElement("div");
+  let formCheckInput = document.createElement("input");
+  let formCheckLabel = document.createElement("label");
+  let forgetPCol = document.createElement("div");
+  let forgetP = document.createElement("p");
+  let forgetLink = document.createElement("a");
+  let loginBtnRow = document.createElement("div");
+  let loginBtn = document.createElement("button");
+  // adding class to element
+  inputL.classList.add(
+    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
+  );
+  labelL.classList.add(...["form-label"]);
+  inputP.classList.add(
+    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
+  );
+  labelP.classList.add(...["form-label"]);
+  loginOptions.classList.add(...["row"]);
+  rememberMe.classList.add(...["col", "d-flex", "justify-content-start"]);
+  formCheckInput.classList.add(...["form-check-input"]);
+  formCheckLabel.classList.add(...["form-check-label", "px-2"]);
+  forgetPCol.classList.add(...["col", "d-flex", "justify-content-end"]);
+  forgetP.classList.add(...["small", "md-5", "pb-lg-2"]);
+  forgetLink.classList.add(...["text-decoration-none"]);
+  loginCard.classList.add(...["card-body", "px-5", "text-start"]);
+  innerCardBox.classList.add(...["mb-md-5", "mt-md-4", "pb-0"]);
+  cardTitle.classList.add(...["fw-bold", "mb-2", "text-uppercase", "mt-2"]);
+  cardTitle.textContent = "Login";
+  cardSubTitle.classList.add(...["text-dark", "mb-3"]);
+  cardSubTitle.innerText = "Please enter your login and password";
+  loginBox.classList.add(...["form-outline", "form-white", "mb-0"]);
+  passwordBox.classList.add(...["form-outline", "form-white", "mb-0"]);
+  loginBtnRow.classList.add(
+    "row",
+    "d-flex",
+    "justity-content-center",
+    "mx-5",
+    "mt-2",
+    "mb-3"
+  );
+  loginBtn.classList.add("login-btn");
+  loginCard.classList.add(...["border-bottom"]);
+  // setting attributes & text
+  inputL.type = "email";
+  inputL.id = "typeEmailX";
+  inputL.setAttribute("placeholder", "Enter email");
+  inputL.setAttribute("name", "email");
+  labelL.setAttribute("for", "typeEmailX");
+  inputP.id = "typePasswordX";
+  inputP.setAttribute("placeholder", "Enter password");
+  inputP.setAttribute("name", "password");
+  inputP.type = "password";
+  labelP.setAttribute("for", "typePasswordX");
+  formCheckInput.type = "checkbox";
+  formCheckInput.setAttribute("id", "remForm");
+  formCheckInput.setAttribute("value", "");
+  formCheckInput.setAttribute("checked", "");
+  formCheckLabel.setAttribute("for", "remForm");
+  formCheckLabel.innerText = "Remember me";
+  forgetLink.setAttribute("href", "/");
+  forgetLink.innerText = "Forgot password?";
+  loginBtn.innerText = "Sign In";
+  // adding relationship
+  loginBox.appendChild(inputL);
+  loginBox.appendChild(labelL);
+  loginBox.appendChild(inputP);
+  loginBox.appendChild(labelP);
+  rememberMe.appendChild(formCheckInput);
+  rememberMe.appendChild(formCheckLabel);
+  forgetP.appendChild(forgetLink);
+  forgetPCol.appendChild(forgetP);
+  loginOptions.appendChild(rememberMe);
+  loginOptions.appendChild(forgetPCol);
+  innerCardBox.appendChild(cardTitle);
+  innerCardBox.appendChild(cardSubTitle);
+  innerCardBox.appendChild(loginBox);
+  innerCardBox.appendChild(loginOptions);
+  loginBtnRow.appendChild(loginBtn);
+  innerCardBox.appendChild(loginBtnRow);
+  loginCard.appendChild(innerCardBox);
+  docFrag.appendChild(loginCard);
+
+  return docFrag;
+}
+
 //*********************************************************** */
 //*********************************************************** */
 //*********************************************************** */
@@ -177,14 +276,16 @@ function createRightNavLinkHeader(headerText) {
   let content = document.createElement("div"); //Reg5
   let headerRow = document.createElement("div");
   headerRow.classList.add("row");
+  content.style.borderBottom = "1px solid whitesmoke";
+  content.classList.add(...["pb-3"]);
   //
   let headerLeft = document.createElement("div");
-  headerLeft.classList.add(...["col", "d-flex", "justify-content-start"]);
+  headerLeft.classList.add(...["col-8", "d-flex", "justify-content-start"]);
   headerLeft.innerHTML = headerText; //
   headerLeft.style.paddingLeft = "50px"; //Reg9 (ctrl+f ".style")
   //"<h4>Access your account</h4>"
   let headerRight = document.createElement("div");
-  headerRight.classList.add(...["col", "d-flex", "justify-content-end"]);
+  headerRight.classList.add(...["col-4", "d-flex", "justify-content-end"]);
   let closeBtn = document.createElement("button");
   closeBtn.id = "closebtn";
   closeBtn.type = "button";
@@ -427,6 +528,7 @@ function handleMyPerschLink(event) {
   rightLinksFormOpen();
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
+  rightNavLinkContent.appendChild(buildRightFormAccount());
 
   //console.log(rightNavLinkContent[0]);
 }

@@ -162,3 +162,23 @@
 .special-link:hover::before {
   transform: scaleX(1);
 }
+
+.login-btn {
+  background-color: #19110b;
+  border: 1px solid #19110b;
+  color: #fff;
+  padding: 0.8125rem 2rem;
+  transition: border 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+    box-shadow 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+    color 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+    background 0.3s cubic-bezier(0.39, 0.575, 0.565, 1),
+    box-shadow 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  border-radius: 100vmax;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login-btn:hover {
+  background-color: #fff;
+  color: black;
+}
