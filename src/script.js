@@ -244,7 +244,7 @@ function createLeftNavLinkHeader(headerText) {
   header.innerHTML = headerText;
   content.id = "leftFormHeader";
 
-  content.style.borderBottom = "1px solid #D3D3D3";
+  //content.style.borderBottom = "1px solid #D3D3D3";
   let closeBtn = document.createElement("button");
   closeBtn.id = "closebtn";
   closeBtn.type = "button";
@@ -257,6 +257,129 @@ function createLeftNavLinkHeader(headerText) {
   content.appendChild(header);
   leftNavLinkContent.appendChild(closeBtn);
   leftNavLinkContent.appendChild(content);
+}
+
+function rightLinksFormOpen() {
+  //helper
+  rightNavLinkContent.style.zIndex = 1032;
+  rightNavLinkContent.style.width = "100%";
+  backdropEl.style.zIndex = 1031;
+  backdropEl.style.width = "100%";
+  backdropEl.style.height = "100%";
+}
+
+function rightLinkFormClose() {
+  //helper
+  rightNavLinkContent.style.zIndex = -2;
+  rightNavLinkContent.style.width = "0";
+  backdropEl.style.width = "0%";
+  backdropEl.style.height = "0%";
+}
+
+function buildDocFrag(data, target) {
+  // helper
+  let docFrag = document.createDocumentFragment();
+  let contentBox = document.createElement("div");
+  contentBox.classList.add(...["container", "h-100"]);
+  let mainRow = document.createElement("div");
+  mainRow.classList.add(...["row"]);
+
+  for (const obj of data) {
+    //console.log(obj);
+    let col = document.createElement("div");
+    let colHeader = document.createElement("div");
+    let unorderedList = document.createElement("ul");
+    unorderedList.style.listStyleType = "none";
+    unorderedList.style.padding = "0";
+    col.classList.add("col");
+    colHeader.classList.add(...["text-start", "pt-3"]);
+    colHeader.innerHTML = `<h5><strong>${obj.title}</strong></h5>`;
+    col.appendChild(colHeader);
+
+    for (const op of obj.options) {
+      let section = document.createElement("li");
+      let link = document.createElement("a");
+      link.setAttribute("href", op.href);
+      link.textContent = op.linkName;
+      link.classList.add(
+        ...[
+          "link-dark",
+          "link-underline-opacity-0",
+          "link-opacity-100-hover",
+          "text-decoration-none",
+          "special-link",
+        ]
+      );
+      section.appendChild(link);
+      unorderedList.appendChild(section);
+    }
+    col.appendChild(unorderedList);
+    mainRow.appendChild(col);
+  }
+  mainRow.style.borderTop = "1px solid #D3D3D3";
+  mainRow.style.height = "75%";
+  contentBox.appendChild(mainRow);
+  contentBox.appendChild(buildLeftFormFooter(target));
+  contentBox.id = "leftBody";
+
+  //contentBox.style.borderBottom = "1px solid #D3D3D3";
+  docFrag.appendChild(contentBox);
+  return docFrag;
+}
+
+function buildLeftFormFooter(target) {
+  //Sale
+  //New Arrivals
+  //Bestsellers
+
+  const links = [
+    `${target} Sale`,
+    `${target} New Arrivals`,
+    `${target} Bestsellers`,
+  ];
+  let r = document.createElement("div");
+  r.classList.add(...["row", "pt-3", "pb-3", "align-items-end"]);
+  for (const l of links) {
+    let c = document.createElement("div");
+    let link = document.createElement("a");
+    link.setAttribute("href", "/"); // change in future
+    link.innerHTML = `<h7 class="footer-link">${l}</h7>`;
+    link.classList.add(
+      ...[
+        "link-info",
+        "link-underline-opacity-0",
+        "link-opacity-50-hover",
+        "text-decoration-none",
+      ]
+    );
+    c.classList.add(...["col"]);
+    c.appendChild(link);
+    r.appendChild(c);
+  }
+  r.style.borderTop = "1px solid #D3D3D3";
+  r.style.borderBottom = "1px solid #D3D3D3";
+  r.id = "leftFooter";
+
+  // padding-right: calc(var(--bs-gutter-x) * .5);
+  //   padding-left: calc(var(--bs-gutter-x) * .5);
+
+  return r;
+}
+
+function isDescendant(parent, child) {
+  var node = child.parentNode;
+  //console.log(node);
+  let c = 1;
+  while (node != null) {
+    //console.log(c, node);
+    if (node == parent) {
+      return true;
+    }
+    node = node.parentNode;
+    c++;
+  }
+
+  return false;
 }
 
 // Handler Functions
@@ -283,11 +406,7 @@ function handleBackgroundEffectExit(event) {
 
 function handleContactLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1032;
-  rightNavLinkContent.style.width = "100%";
-  backdropEl.style.zIndex = 1031;
-  backdropEl.style.width = "100%";
-  backdropEl.style.height = "100%";
+  rightLinksFormOpen();
   clearRightNavContent();
   //console.log(event.target);
   createRightNavLinkHeader("<h5>Contact Us</h5>");
@@ -295,24 +414,14 @@ function handleContactLink(event) {
 
 function handleNotificationLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1032;
-  rightNavLinkContent.style.width = "100%";
-  backdropEl.style.zIndex = 1031;
-  backdropEl.style.width = "100%";
-  backdropEl.style.height = "100%";
-
+  rightLinksFormOpen();
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Notifications</h4>");
   //console.log(event.target);
 }
 function handleMyPerschLink(event) {
   event.preventDefault();
-  rightNavLinkContent.style.zIndex = 1032;
-  rightNavLinkContent.style.width = "100%";
-  backdropEl.style.zIndex = 1031;
-  backdropEl.style.width = "100%";
-  backdropEl.style.height = "100%";
-
+  rightLinksFormOpen();
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
 
@@ -324,11 +433,7 @@ function handleRightFormClose(event) {
 
   //console.log(event.target.id);
   if (event.target.id === "closebtn") {
-    console.log("closing");
-    rightNavLinkContent.style.zIndex = -2;
-    rightNavLinkContent.style.width = "0";
-    backdropEl.style.width = "0%";
-    backdropEl.style.height = "0%";
+    rightLinkFormClose();
   } else {
     return;
   }
@@ -341,10 +446,7 @@ function handleClickOutside(event) {
 
   if (event.target.id !== "nav-link-cont" && event.target.id === "backdrop") {
     //console.log(event.target);
-    rightNavLinkContent.style.zIndex = -2;
-    rightNavLinkContent.style.width = "0";
-    backdropEl.style.width = "0%";
-    backdropEl.style.height = "0%";
+    rightLinkFormClose();
   }
 }
 
@@ -360,9 +462,6 @@ function handleFixNavScroll(event) {
 
 function handleClickOutsideLeft(event) {
   event.preventDefault();
-  //console.log("test", event.target, event.target.id);
-  console.log(leftNavLinkContent.classList.contains("on"));
-
   const allowed = [
     "menNavLink",
     "womenNavLink",
@@ -372,8 +471,16 @@ function handleClickOutsideLeft(event) {
     "leftFormHText",
     "header",
     "main-logo",
+    "leftBody",
+    "leftFooter",
   ];
-  if (!allowed.includes(event.target.id)) {
+
+  if (
+    event.target.classList.contains("special-link") ||
+    event.target.classList.contains("footer-link") ||
+    (!allowed.includes(event.target.id) &&
+      !isDescendant(leftNavLinkContent, event.target))
+  ) {
     leftNavLinkContent.classList.remove("on");
     leftNavLinkContent.style.zIndex = -2;
     leftNavLinkContent.style.width = "0";
@@ -415,8 +522,13 @@ function handleMenLink(event) {
   leftNavLinkContent.classList.add("on");
   fixedNavTransform("open");
   clearLeftNavContent();
-  createLeftNavLinkHeader(`<h5 id="leftFormHText">Testing1</h5>`);
+  createLeftNavLinkHeader(`<h5 id="leftFormHText">EXPLORE THE MEN SHOP</h5>`);
+
+  // DocFrag
+  leftNavLinkContent.appendChild(buildDocFrag(menLeftData, "Men's"));
+  //leftNavLinkContent.appendChild(buildLeftFormFooter("Men's"));
 }
+
 function handleWomenLink(event) {
   event.preventDefault();
   leftNavLinkContent.style.zIndex = 1032;
@@ -424,17 +536,20 @@ function handleWomenLink(event) {
   leftNavLinkContent.classList.add("on");
   fixedNavTransform("open");
   clearLeftNavContent();
-  createLeftNavLinkHeader(`<h5 id="leftFormHText">Testing2</h5>`);
+  createLeftNavLinkHeader(`<h5 id="leftFormHText">EXPLORE THE WOMEN SHOP</h5>`);
+  leftNavLinkContent.appendChild(buildDocFrag(womenLeftData, "Women's"));
+  //leftNavLinkContent.appendChild(buildLeftFormFooter("Women's"));
 }
 function handleKidsLink(event) {
   event.preventDefault();
   leftNavLinkContent.style.zIndex = 1032;
   leftNavLinkContent.style.width = "100%";
-
   leftNavLinkContent.classList.add("on");
   fixedNavTransform("open");
   clearLeftNavContent();
-  createLeftNavLinkHeader(`<h5 id="leftFormHText">Testing3</h5>`);
+  createLeftNavLinkHeader(`<h5 id="leftFormHText">EXPLORE THE KIDS SHOP</h5>`);
+  leftNavLinkContent.appendChild(buildDocFrag(kidsLeftData, "Kids'"));
+  //leftNavLinkContent.appendChild(buildLeftFormFooter("Kids'"));
 }
 
 // Adding Listeners

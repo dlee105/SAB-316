@@ -78,7 +78,7 @@
   /* boostrap fixed z-index value is 1030 */
 }
 .nav-link-content-l {
-  height: 50vh;
+  height: 100%;
   max-width: 800px;
   max-height: 50vh;
   background-color: rgba(255, 255, 255, 1);
@@ -134,4 +134,31 @@
     position: relative;
     right: 0;
   }
+}
+
+.special-link {
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+.special-link:hover {
+  color: #000;
+}
+
+.special-link::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.special-link:hover::before {
+  transform: scaleX(1);
 }
