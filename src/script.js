@@ -128,6 +128,9 @@ let leftNavLinkContent = document.getElementById("nav-link-cont-l");
 let contactLinkEl = document.getElementById("contact");
 let notificationLinkEl = document.getElementById("notification");
 let myPershLinkEl = document.getElementById("myPersh");
+var loginForm = document.getElementById("loginForm");
+var loginEmail = document.getElementById("typeEmailX");
+var loginPassword = document.getElementById("typePasswordX");
 let rightFormCloseBtn = document.getElementById("closebtn");
 //Left Links
 let menLinkEl = document.getElementById("menNavLink");
@@ -149,6 +152,15 @@ function buildRightFormReg() {
   let innerCardBox = document.createElement("div");
   let cardTitle = document.createElement("h2");
   let cardSubTitle = document.createElement("p");
+  let registerBox = document.createElement("div");
+  let inputE = document.createElement("input");
+  let labelE = document.createElement("label");
+  let inputP1 = document.createElement("input");
+  let labelP1 = document.createElement("label");
+  let inputP2 = document.createElement("input");
+  let labelP2 = document.createElement("label");
+  let regBtnRow = document.createElement("div");
+  let regBtn = document.createElement("button");
 
   //
   regCard.classList.add(...["card-body", "px-5", "text-start"]);
@@ -158,12 +170,58 @@ function buildRightFormReg() {
   cardSubTitle.classList.add(...["text-dark", "mb-3"]);
   cardSubTitle.innerText =
     "Don't have an account? Register below with your email";
+  registerBox.classList.add(...["form-outline", "form-white", "mb-0"]);
+  inputE.classList.add(
+    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
+  );
+  labelE.classList.add(...["form-label"]);
+  inputP1.classList.add(
+    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
+  );
+  inputP2.classList.add(
+    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
+  );
+  labelP1.classList.add(...["form-label"]);
+  labelP2.classList.add(...["form-label"]);
+  regBtnRow.classList.add(
+    ...["row", "d-flex", "justity-content-center", "mx-5", "mt-2", "mb-3"]
+  );
+  regBtn.classList.add(...["login-btn"]);
+  regCard.classList.add(...["card-body", "px-5", "text-start"]);
 
   //
+  labelE.setAttribute("for", "typeEmailY");
+  inputE.type = "email";
+  inputE.id = "typeEmailY";
+  inputE.setAttribute("placeholder", "Enter email");
+  inputE.setAttribute("name", "email");
+  labelE.setAttribute("for", "typeEmailY");
+  regBtn.innerText = "Register";
+  inputP1.id = "typePasswordY1";
+  inputP1.setAttribute("placeholder", "Enter password");
+  inputP1.setAttribute("name", "password");
+  inputP1.type = "password";
+  labelP1.setAttribute("for", "typePasswordY1");
+  inputP2.id = "typePasswordY2";
+  inputP2.setAttribute("placeholder", "Re-enter password");
+  inputP2.setAttribute("name", "password");
+  inputP2.type = "password";
+  labelP2.setAttribute("for", "typePasswordY2");
+  //
+  registerBox.appendChild(inputE);
+  registerBox.appendChild(labelE);
+  registerBox.appendChild(inputP1);
+  registerBox.appendChild(labelP1);
+  registerBox.appendChild(inputP2);
+  registerBox.appendChild(labelP2);
   innerCardBox.appendChild(cardTitle);
   innerCardBox.appendChild(cardSubTitle);
+  innerCardBox.appendChild(registerBox);
+  regBtnRow.appendChild(regBtn);
+  innerCardBox.appendChild(regBtnRow);
   regCard.appendChild(innerCardBox);
   docFrag.appendChild(regCard);
+
   return docFrag;
 }
 
@@ -177,7 +235,7 @@ function buildRightFormLogin() {
   let loginBox = document.createElement("div");
   let inputL = document.createElement("input");
   let labelL = document.createElement("label");
-  let passwordBox = document.createElement("div");
+
   let inputP = document.createElement("input");
   let labelP = document.createElement("label");
   let loginOptions = document.createElement("div");
@@ -212,7 +270,7 @@ function buildRightFormLogin() {
   cardSubTitle.classList.add(...["text-dark", "mb-3"]);
   cardSubTitle.innerText = "Please enter your login and password";
   loginBox.classList.add(...["form-outline", "form-white", "mb-0"]);
-  passwordBox.classList.add(...["form-outline", "form-white", "mb-0"]);
+
   loginBtnRow.classList.add(
     ...["row", "d-flex", "justity-content-center", "mx-5", "mt-2", "mb-3"]
   );
@@ -223,6 +281,7 @@ function buildRightFormLogin() {
   inputL.id = "typeEmailX";
   inputL.setAttribute("placeholder", "Enter email");
   inputL.setAttribute("name", "email");
+  inputL.setAttribute("required", "");
   labelL.setAttribute("for", "typeEmailX");
   inputP.id = "typePasswordX";
   inputP.setAttribute("placeholder", "Enter password");
@@ -238,6 +297,7 @@ function buildRightFormLogin() {
   forgetLink.setAttribute("href", "/");
   forgetLink.innerText = "Forgot password?";
   loginBtn.innerText = "Sign In";
+  loginBtn.type = "submit";
   // adding relationship
   loginBox.appendChild(inputL);
   loginBox.appendChild(labelL);
@@ -550,6 +610,9 @@ function handleMyPerschLink(event) {
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
   let loginForm = document.createElement("form");
+  loginForm.id = "loginForm";
+  loginForm.setAttribute("action", "/");
+  loginForm.setAttribute("method", "GET");
   let registerForm = document.createElement("form");
   loginForm.appendChild(buildRightFormLogin());
   registerForm.appendChild(buildRightFormReg());
@@ -671,6 +734,7 @@ function handleWomenLink(event) {
   leftNavLinkContent.appendChild(buildDocFrag(womenLeftData, "Women's"));
   //leftNavLinkContent.appendChild(buildLeftFormFooter("Women's"));
 }
+
 function handleKidsLink(event) {
   event.preventDefault();
   leftNavLinkContent.style.zIndex = 1032;
@@ -711,3 +775,13 @@ leftNavLinkContent.addEventListener("click", handleLeftFormClose);
 menLinkEl.addEventListener("click", handleMenLink);
 womenLinkEl.addEventListener("click", handleWomenLink);
 kidsLinkEl.addEventListener("click", handleKidsLink);
+
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const userEmailValue = loginEmail.value.trim();
+  const passwordValue = loginPassword.value.trim();
+
+  if (userEmailValue === "") {
+    console.log("wtf");
+  }
+});
