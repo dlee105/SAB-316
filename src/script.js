@@ -20,7 +20,7 @@
 // Reg9 - Modify the style and/or CSS classes of an element in response to user interactions using the style or classList properties.
 // RegA - Modify at least one attribute of an element in response to user interaction.
 // RegB - Register at least two different event listeners and create the associated event handler functions.
-// (incomplete) RegC - Use at least two Browser Object Model (BOM) properties or methods.
+// RegC - Use at least two Browser Object Model (BOM) properties or methods.
 // (incomplete) RegD - Include at least one form and/or input with HTML attribute validation.
 // (incomplete) RegE - Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
 // https://www.w3schools.com/js/js_validation.asp
@@ -128,10 +128,31 @@ let leftNavLinkContent = document.getElementById("nav-link-cont-l");
 let contactLinkEl = document.getElementById("contact");
 let notificationLinkEl = document.getElementById("notification");
 let myPershLinkEl = document.getElementById("myPersh");
-var loginForm = document.getElementById("loginForm");
-var loginEmail = document.getElementById("typeEmailX");
-var loginPassword = document.getElementById("typePasswordX");
 let rightFormCloseBtn = document.getElementById("closebtn");
+
+// Login form elements ///////////////////////////////////////////////////////////////
+const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+let loginForm = document.createElement("form"); //Parent
+loginForm.id = "login-form";
+let loginFormTitle = document.createElement("div"); // Title
+let loginFormEmailInputBox = document.createElement("div"); // email input child
+let loginFormEmailLabel = document.createElement("label");
+let loginFormEmailInput = document.createElement("input");
+loginFormEmailInput.id = "login-email";
+let loginFormEmailError = document.createElement("div");
+let loginFormPasswordInputBox = document.createElement("div"); // password input child
+let loginFormPasswordLabel = document.createElement("label");
+let loginFormPasswordInput = document.createElement("input");
+loginFormPasswordInput.id = "login-password";
+let loginFormPasswordError = document.createElement("div");
+let loginFormFunctionalitiesBox = document.createElement("div");
+let loginFormCheckBoxInput = document.createElement("input");
+let loginFormCheckBoxLabel = document.createElement("label");
+let loginFormForgetLogin = document.createElement("a");
+let loginFormSubmitBtn = document.createElement("button");
+//console.log(loginForm);
+buildLoginFormElements();
+
 //Left Links
 let menLinkEl = document.getElementById("menNavLink");
 let womenLinkEl = document.getElementById("womenNavLink");
@@ -146,81 +167,14 @@ let kidsLinkEl = document.getElementById("kidsNavLink");
 
 // write new code here then transfer below later {}
 
+console.log(loginFormFunctionalitiesBox);
+
+// Login form ///////////////////////////////////////////////////////////////
+
+// Register form/////////////////////////////////////////////////////////////
+
 function buildRightFormReg() {
   let docFrag = document.createDocumentFragment();
-  let regCard = document.createElement("div");
-  let innerCardBox = document.createElement("div");
-  let cardTitle = document.createElement("h2");
-  let cardSubTitle = document.createElement("p");
-  let registerBox = document.createElement("div");
-  let inputE = document.createElement("input");
-  let labelE = document.createElement("label");
-  let inputP1 = document.createElement("input");
-  let labelP1 = document.createElement("label");
-  let inputP2 = document.createElement("input");
-  let labelP2 = document.createElement("label");
-  let regBtnRow = document.createElement("div");
-  let regBtn = document.createElement("button");
-
-  //
-  regCard.classList.add(...["card-body", "px-5", "text-start"]);
-  innerCardBox.classList.add(...["mb-md-5", "mt-md-4", "pb-0"]);
-  cardTitle.classList.add(...["fw-bold", "mb-2", "text-uppercase", "mt-2"]);
-  cardTitle.textContent = "Register";
-  cardSubTitle.classList.add(...["text-dark", "mb-3"]);
-  cardSubTitle.innerText =
-    "Don't have an account? Register below with your email";
-  registerBox.classList.add(...["form-outline", "form-white", "mb-0"]);
-  inputE.classList.add(
-    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
-  );
-  labelE.classList.add(...["form-label"]);
-  inputP1.classList.add(
-    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
-  );
-  inputP2.classList.add(
-    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
-  );
-  labelP1.classList.add(...["form-label"]);
-  labelP2.classList.add(...["form-label"]);
-  regBtnRow.classList.add(
-    ...["row", "d-flex", "justity-content-center", "mx-5", "mt-2", "mb-3"]
-  );
-  regBtn.classList.add(...["login-btn"]);
-  regCard.classList.add(...["card-body", "px-5", "text-start"]);
-
-  //
-  labelE.setAttribute("for", "typeEmailY");
-  inputE.type = "email";
-  inputE.id = "typeEmailY";
-  inputE.setAttribute("placeholder", "Enter email");
-  inputE.setAttribute("name", "email");
-  labelE.setAttribute("for", "typeEmailY");
-  regBtn.innerText = "Register";
-  inputP1.id = "typePasswordY1";
-  inputP1.setAttribute("placeholder", "Enter password");
-  inputP1.setAttribute("name", "password");
-  inputP1.type = "password";
-  labelP1.setAttribute("for", "typePasswordY1");
-  inputP2.id = "typePasswordY2";
-  inputP2.setAttribute("placeholder", "Re-enter password");
-  inputP2.setAttribute("name", "password");
-  inputP2.type = "password";
-  labelP2.setAttribute("for", "typePasswordY2");
-  //
-  registerBox.appendChild(inputE);
-  registerBox.appendChild(labelE);
-  registerBox.appendChild(inputP1);
-  registerBox.appendChild(labelP1);
-  registerBox.appendChild(inputP2);
-  registerBox.appendChild(labelP2);
-  innerCardBox.appendChild(cardTitle);
-  innerCardBox.appendChild(cardSubTitle);
-  innerCardBox.appendChild(registerBox);
-  regBtnRow.appendChild(regBtn);
-  innerCardBox.appendChild(regBtnRow);
-  regCard.appendChild(innerCardBox);
-  docFrag.appendChild(regCard);
 
   return docFrag;
 }
@@ -228,96 +182,7 @@ function buildRightFormReg() {
 function buildRightFormLogin() {
   // creating element query
   let docFrag = document.createDocumentFragment();
-  let loginCard = document.createElement("div");
-  let innerCardBox = document.createElement("div");
-  let cardTitle = document.createElement("h2");
-  let cardSubTitle = document.createElement("p");
-  let loginBox = document.createElement("div");
-  let inputL = document.createElement("input");
-  let labelL = document.createElement("label");
-
-  let inputP = document.createElement("input");
-  let labelP = document.createElement("label");
-  let loginOptions = document.createElement("div");
-  let rememberMe = document.createElement("div");
-  let formCheckInput = document.createElement("input");
-  let formCheckLabel = document.createElement("label");
-  let forgetPCol = document.createElement("div");
-  let forgetP = document.createElement("p");
-  let forgetLink = document.createElement("a");
-  let loginBtnRow = document.createElement("div");
-  let loginBtn = document.createElement("button");
-  // adding class to element
-  inputL.classList.add(
-    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
-  );
-  labelL.classList.add(...["form-label"]);
-  inputP.classList.add(
-    ...["form-control", "form-control", "shadow-none", "border-white", "px-0"]
-  );
-  labelP.classList.add(...["form-label"]);
-  loginOptions.classList.add(...["row"]);
-  rememberMe.classList.add(...["col", "d-flex", "justify-content-start"]);
-  formCheckInput.classList.add(...["form-check-input"]);
-  formCheckLabel.classList.add(...["form-check-label", "px-2"]);
-  forgetPCol.classList.add(...["col", "d-flex", "justify-content-end"]);
-  forgetP.classList.add(...["small", "md-5", "pb-lg-2"]);
-  forgetLink.classList.add(...["text-decoration-none"]);
-  loginCard.classList.add(...["card-body", "px-5", "text-start"]);
-  innerCardBox.classList.add(...["mb-md-5", "mt-md-4", "pb-0"]);
-  cardTitle.classList.add(...["fw-bold", "mb-2", "text-uppercase", "mt-2"]);
-  cardTitle.textContent = "Login";
-  cardSubTitle.classList.add(...["text-dark", "mb-3"]);
-  cardSubTitle.innerText = "Please enter your login and password";
-  loginBox.classList.add(...["form-outline", "form-white", "mb-0"]);
-
-  loginBtnRow.classList.add(
-    ...["row", "d-flex", "justity-content-center", "mx-5", "mt-2", "mb-3"]
-  );
-  loginBtn.classList.add(...["login-btn"]);
-  loginCard.classList.add(...["border-bottom"]);
-  // setting attributes & text
-  inputL.type = "email";
-  inputL.id = "typeEmailX";
-  inputL.setAttribute("placeholder", "Enter email");
-  inputL.setAttribute("name", "email");
-  inputL.setAttribute("required", "");
-  labelL.setAttribute("for", "typeEmailX");
-  inputP.id = "typePasswordX";
-  inputP.setAttribute("placeholder", "Enter password");
-  inputP.setAttribute("name", "password");
-  inputP.type = "password";
-  labelP.setAttribute("for", "typePasswordX");
-  formCheckInput.type = "checkbox";
-  formCheckInput.setAttribute("id", "remForm");
-  formCheckInput.setAttribute("value", "");
-  formCheckInput.setAttribute("checked", "");
-  formCheckLabel.setAttribute("for", "remForm");
-  formCheckLabel.innerText = "Remember me";
-  forgetLink.setAttribute("href", "/");
-  forgetLink.innerText = "Forgot password?";
-  loginBtn.innerText = "Sign In";
-  loginBtn.type = "submit";
-  // adding relationship
-  loginBox.appendChild(inputL);
-  loginBox.appendChild(labelL);
-  loginBox.appendChild(inputP);
-  loginBox.appendChild(labelP);
-  rememberMe.appendChild(formCheckInput);
-  rememberMe.appendChild(formCheckLabel);
-  forgetP.appendChild(forgetLink);
-  forgetPCol.appendChild(forgetP);
-  loginOptions.appendChild(rememberMe);
-  loginOptions.appendChild(forgetPCol);
-  innerCardBox.appendChild(cardTitle);
-  innerCardBox.appendChild(cardSubTitle);
-  innerCardBox.appendChild(loginBox);
-  innerCardBox.appendChild(loginOptions);
-  loginBtnRow.appendChild(loginBtn);
-  innerCardBox.appendChild(loginBtnRow);
-  loginCard.appendChild(innerCardBox);
-  docFrag.appendChild(loginCard);
-
+  docFrag.appendChild(loginForm);
   return docFrag;
 }
 
@@ -385,10 +250,10 @@ function fixedNavTransform(status) {
   //helper
 
   if (status === "open") {
-    fixedNavBar.style.transition = "all 0.5s ease-out allow-discrete";
+    fixedNavBar.style.transition = "all .3s ease-out";
     fixedNavBar.style.backgroundColor = "white";
     fixedNavBar.style.color = "black";
-    fixedNavBar.style.borderBottom = "1px solid whitesmoke";
+    //fixedNavBar.style.borderBottom = "1px solid whitesmoke";
     for (let link of headerLinks) {
       //Reg4
       //   console.log(link);
@@ -396,10 +261,10 @@ function fixedNavTransform(status) {
       link.classList.add("link-dark");
     }
   } else if (status === "close") {
-    fixedNavBar.style.transition = "all 0.5s ease-out allow-discrete";
+    fixedNavBar.style.transition = "all .3s ease-out";
     fixedNavBar.style.backgroundColor = "transparent";
     fixedNavBar.style.color = "white";
-    fixedNavBar.style.borderBottom = "none";
+    //fixedNavBar.style.borderBottom = "none";
     for (let link of headerLinks) {
       //Reg4
       // console.log(link);
@@ -566,6 +431,137 @@ function isDescendant(parent, child) {
   return false;
 }
 
+const validateLoginFormInputs = () => {
+  //RegE
+  const form = document.getElementById("login-form");
+  const email = document.getElementById("login-email");
+  const password = document.getElementById("login-password");
+
+  const emailVal = email.value.trim();
+  const passwordValue = password.value.trim();
+
+  let emailState = false;
+  let passwordState = false;
+
+  if (emailVal === "") {
+    setError(email, "Email field is required");
+  } else if (!re.test(String(emailVal).toLowerCase())) {
+    setError(email, "Email is invalid");
+  } else {
+    setSuccess(email);
+    emailState = true;
+  }
+
+  if (passwordValue === "") {
+    setError(password, "Password is required");
+  } else if (passwordValue.length < 8) {
+    setError(password, "Please enter a valid password");
+  } else {
+    setSuccess(password);
+    passwordState = true;
+  }
+
+  if (emailState === true && passwordState === true) {
+    window.alert(
+      "Database isn't yet implemented but login inputs are valid :)"
+    ); //RegC
+    email.value = "";
+    password.value = "";
+  }
+};
+
+const setError = (element, message) => {
+  const inputControl = element.parentElement;
+  const errorDisplay = inputControl.querySelector(".error");
+  errorDisplay.innerText = message;
+  inputControl.classList.add("error");
+  inputControl.classList.remove("success");
+};
+
+const setSuccess = (element) => {
+  const inputControl = element.parentElement;
+  const errorDisplay = inputControl.querySelector(".error");
+  errorDisplay.innerText = "";
+  inputControl.classList.add("success");
+  inputControl.classList.remove("error");
+};
+
+function buildLoginFormElements() {
+  loginForm.setAttribute("action", "/");
+
+  loginFormTitle.innerHTML =
+    "<h2>LOGIN</h2><p>Please enter your email and password</p>";
+  loginFormTitle.classList.add("mt-3");
+  loginFormEmailInputBox.classList.add(...["input-control"]);
+  loginFormEmailError.classList.add(...["error", "text-danger"]);
+
+  loginFormEmailInput.setAttribute("name", "email");
+  loginFormEmailInput.setAttribute("required", "");
+  loginFormEmailInput.setAttribute("pattern", String(re));
+  loginFormEmailInput.setAttribute("placeholder", "janedoe@example.com");
+  loginFormEmailInput.type = "email";
+  loginFormEmailLabel.innerText = "Email";
+  loginFormEmailInput.classList.add(...["form-control", "shadow-none"]);
+  loginFormEmailLabel.setAttribute("for", "login-email");
+  loginFormPasswordInputBox.classList.add(...["input-control"]);
+
+  loginFormPasswordError.classList.add(...["error", "text-danger"]);
+
+  loginFormPasswordInput.classList.add(...["form-control", "shadow-none"]);
+  loginFormPasswordInput.setAttribute("name", "password");
+  loginFormPasswordInput.setAttribute("required", "");
+  loginFormPasswordInput.type = "password";
+
+  loginFormPasswordLabel.innerText = "Password";
+  loginFormPasswordLabel.classList.add("mt-2");
+  loginFormPasswordLabel.setAttribute("for", "login-password");
+
+  let loginFormCheckBoxContainer = document.createElement("div");
+  loginFormCheckBoxInput.type = "checkbox";
+  loginFormCheckBoxInput.id = "remember-me";
+  loginFormCheckBoxInput.name = "remember-me";
+  loginFormCheckBoxInput.value = "0";
+  loginFormCheckBoxInput.checked = false;
+
+  loginFormCheckBoxLabel.htmlFor = "remember-me";
+  loginFormCheckBoxLabel.innerText = "Remember me";
+  loginFormCheckBoxLabel.style.paddingLeft = "5px";
+  loginFormCheckBoxContainer.appendChild(loginFormCheckBoxInput);
+  loginFormCheckBoxContainer.appendChild(loginFormCheckBoxLabel);
+
+  loginFormForgetLogin.setAttribute("href", "/");
+  loginFormForgetLogin.innerText = "Forgot password";
+
+  let submitBtnRow = document.createElement("div");
+  submitBtnRow.classList.add(
+    ...["row", "justify-content-md-center", "mx-5", "pt-3"]
+  );
+
+  loginFormSubmitBtn.type = "submit";
+  loginFormSubmitBtn.innerText = "login";
+  loginFormSubmitBtn.classList.add(...["login-btn"]);
+  submitBtnRow.appendChild(loginFormSubmitBtn);
+
+  // Appending
+  loginFormEmailInputBox.appendChild(loginFormEmailLabel);
+  loginFormEmailInputBox.appendChild(loginFormEmailInput);
+  loginFormEmailInputBox.appendChild(loginFormEmailError);
+  loginFormPasswordInputBox.appendChild(loginFormPasswordLabel);
+  loginFormPasswordInputBox.appendChild(loginFormPasswordInput);
+  loginFormPasswordInputBox.appendChild(loginFormPasswordError);
+  loginFormFunctionalitiesBox.appendChild(loginFormCheckBoxContainer);
+  loginFormFunctionalitiesBox.appendChild(loginFormForgetLogin);
+  //
+  loginForm.appendChild(loginFormTitle);
+  loginForm.appendChild(loginFormEmailInputBox);
+  loginForm.appendChild(loginFormPasswordInputBox);
+  loginForm.appendChild(loginFormFunctionalitiesBox);
+  loginForm.appendChild(loginFormForgetLogin);
+  loginForm.appendChild(submitBtnRow);
+
+  //console.log(loginForm);
+}
+
 // Handler Functions //RegB
 //*********************************************************** */
 //*********************************************************** */
@@ -609,14 +605,12 @@ function handleMyPerschLink(event) {
   rightLinksFormOpen();
   clearRightNavContent();
   createRightNavLinkHeader("<h4>Access your account</h4>");
-  let loginForm = document.createElement("form");
-  loginForm.id = "loginForm";
-  loginForm.setAttribute("action", "/");
-  loginForm.setAttribute("method", "GET");
+  let loginContainer = document.createElement("div");
+  loginContainer.classList.add(...["container"]);
   let registerForm = document.createElement("form");
-  loginForm.appendChild(buildRightFormLogin());
+  loginContainer.appendChild(buildRightFormLogin());
   registerForm.appendChild(buildRightFormReg());
-  rightNavLinkContent.appendChild(loginForm);
+  rightNavLinkContent.appendChild(loginContainer);
   rightNavLinkContent.appendChild(registerForm);
 
   //console.log(rightNavLinkContent[0]);
@@ -640,6 +634,7 @@ function handleClickOutside(event) {
 
   if (event.target.id !== "nav-link-cont" && event.target.id === "backdrop") {
     //console.log(event.target);
+
     rightLinkFormClose();
   }
 }
@@ -770,18 +765,75 @@ notificationLinkEl.addEventListener("click", handleNotificationLink);
 myPershLinkEl.addEventListener("click", handleMyPerschLink);
 rightNavLinkContent.addEventListener("click", handleRightFormClose);
 
+loginFormEmailInput.addEventListener("keyup", () => {
+  const email = document.getElementById("login-email");
+  const emailVal = email.value.trim();
+  console.log(email.value);
+  if (emailVal === "" || emailVal.length < 1) {
+    setError(email, "Email field is required");
+  } else if (!re.test(String(emailVal).toLowerCase())) {
+    setError(email, "Email is invalid");
+  } else {
+    setSuccess(email);
+  }
+});
+
+loginFormPasswordInput.addEventListener("keyup", () => {
+  //console.log(2);
+  const password = document.getElementById("login-password");
+  const passwordValue = password.value.trim();
+  if (passwordValue === "") {
+    setError(password, "Password is required");
+  } else if (passwordValue.length < 8) {
+    setError(password, "Please enter a valid password");
+  } else {
+    setSuccess(password);
+  }
+});
+
+loginFormSubmitBtn.addEventListener("click", () => {
+  //console.log("true");
+  validateLoginFormInputs();
+});
+
+function check() {
+  document.getElementById("remember-me").checked = true;
+}
+
+function uncheck() {
+  document.getElementById("remember-me").checked = false;
+}
+
+loginFormCheckBoxInput.addEventListener("click", () => {
+  if (loginFormCheckBoxInput.value === "0") {
+    loginFormCheckBoxInput.value = "1";
+    check();
+    // loginFormCheckBoxInput.removeAttribute("unchecked");
+    // loginFormCheckBoxInput.setAttribute("checked", "");
+    //
+  } else if (loginFormCheckBoxInput.value === "1") {
+    loginFormCheckBoxInput.value = "0";
+    uncheck();
+    // loginFormCheckBoxInput.setAttribute("unchecked", "");
+
+    //console.log(loginFormCheckBoxInput.value);
+  }
+  console.log(loginFormCheckBoxInput.checked);
+});
+loginFormCheckBoxLabel.addEventListener("click", () => {});
+
 // Left Links
 leftNavLinkContent.addEventListener("click", handleLeftFormClose);
 menLinkEl.addEventListener("click", handleMenLink);
 womenLinkEl.addEventListener("click", handleWomenLink);
 kidsLinkEl.addEventListener("click", handleKidsLink);
 
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const userEmailValue = loginEmail.value.trim();
-  const passwordValue = loginPassword.value.trim();
+// loginForm.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   const userEmailValue = loginEmail.value.trim();
+//   const passwordValue = loginPassword.value.trim();
 
-  if (userEmailValue === "") {
-    console.log("wtf");
-  }
-});
+//   if (userEmailValue === "") {
+//     console.log("wtf");
+//   }
+// });
