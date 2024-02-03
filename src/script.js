@@ -154,9 +154,10 @@ let loginFormCheckBoxLabel = document.createElement("label");
 let loginFormForgetLogin = document.createElement("a");
 let loginFormSubmitBtn = document.createElement("button");
 let registerLink = document.createElement("a");
-registerLink.href = "#!";
+registerLink.href = "";
 registerLink.innerText = "Register";
-registerLink.addEventListener("click", () => {});
+registerLink.setAttribute("data-bs-toggle", "modal");
+registerLink.setAttribute("data-bs-target", "#modalLoginForm");
 
 //console.log(loginForm);
 buildLoginFormElements();
@@ -176,6 +177,10 @@ let kidsLinkEl = document.getElementById("kidsNavLink");
 //*********************************************************** */
 //*********************************************************** */
 //*********************************************************** */
+
+mainlogo.addEventListener("click", () => {
+  window.open("./src/regform.html");
+});
 
 // write new code here then transfer below later {}
 
