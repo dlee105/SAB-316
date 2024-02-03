@@ -15,6 +15,10 @@
   width: 100%;
 }
 
+#main-logo {
+  cursor: pointer;
+}
+
 .top-img-header {
   display: flex;
   justify-content: center;

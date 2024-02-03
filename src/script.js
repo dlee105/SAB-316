@@ -7,6 +7,8 @@
 // the specific locations of each
 // scoring requirements
 
+// I recommend collapse all functions to avoid headache
+
 // use ctrl+f to filter out each requirement *I misspelled req for reg :)*
 
 // Reg1 - Cache at least one element using selectElementById.
@@ -21,8 +23,8 @@
 // RegA - Modify at least one attribute of an element in response to user interaction.
 // RegB - Register at least two different event listeners and create the associated event handler functions.
 // RegC - Use at least two Browser Object Model (BOM) properties or methods.
-// (incomplete) RegD - Include at least one form and/or input with HTML attribute validation.
-// (incomplete) RegE - Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
+// RegD - Include at least one form and/or input with HTML attribute validation.
+// RegE  - Include at least one form and/or input with DOM event-based validation. (This can be the same form or input as the one above, but should include event-based validation in addition to the HTML attribute validation.)
 // https://www.w3schools.com/js/js_validation.asp
 
 // JSONs
@@ -114,7 +116,8 @@ const kidsLeftData = [
 //*********************************************************** */
 
 //General Els
-
+let funnyaudio = new Audio("font/funnyaudio.mp3");
+let mainlogo = document.getElementById("main-logo");
 let allcontent = document.querySelector("main"); //Reg2
 let fixedNavBar = document.getElementById("fixed-nav"); //Reg1
 let headerLinks = document.getElementsByClassName("nav-link"); //Reg4 see below
@@ -150,8 +153,17 @@ let loginFormCheckBoxInput = document.createElement("input");
 let loginFormCheckBoxLabel = document.createElement("label");
 let loginFormForgetLogin = document.createElement("a");
 let loginFormSubmitBtn = document.createElement("button");
+let registerLink = document.createElement("a");
+registerLink.href = "#!";
+registerLink.innerText = "Register";
+registerLink.addEventListener("click", () => {});
+
 //console.log(loginForm);
 buildLoginFormElements();
+
+let regForm = document.createElement("div");
+
+// Login form ///////////////////////////////////////////////////////////////
 
 //Left Links
 let menLinkEl = document.getElementById("menNavLink");
@@ -167,17 +179,30 @@ let kidsLinkEl = document.getElementById("kidsNavLink");
 
 // write new code here then transfer below later {}
 
-console.log(loginFormFunctionalitiesBox);
-
-// Login form ///////////////////////////////////////////////////////////////
-
 // Register form/////////////////////////////////////////////////////////////
+// let regForm = document.createElement("form"); //Parent
+// regForm.id = "reg-form";
+// let regFormTitle = document.createElement("div"); // Title
 
-function buildRightFormReg() {
-  let docFrag = document.createDocumentFragment();
+// buildRegFormElements();
+// // Register form//////////////////////////////////////////////////////////////
 
-  return docFrag;
-}
+// function buildRegFormElements() {
+//   regForm.setAttribute("action", "/");
+//   regFormTitle.innerHTML =
+//     "<h2>REGISTER</h2><p>Please fill out your info to register</p>";
+//   regFormTitle.classList.add("mt-3");
+
+//   //
+//   //
+//   regForm.appendChild(regFormTitle);
+// }
+
+// function buildRightFormReg() {
+//   let docFrag = document.createDocumentFragment();
+//   docFrag.appendChild(regForm);
+//   return docFrag;
+// }
 
 function buildRightFormLogin() {
   // creating element query
@@ -225,13 +250,13 @@ function createRightNavLinkHeader(headerText) {
   //
   let headerLeft = document.createElement("div");
   headerLeft.classList.add(
-    ...["col-8", "d-flex", "justify-content-start", "text-uppercase"]
+    ...["col-10", "d-flex", "justify-content-start", "text-uppercase"]
   );
   headerLeft.innerHTML = headerText; //
   headerLeft.style.paddingLeft = "50px"; //Reg9 (ctrl+f ".style")
   //"<h4>Access your account</h4>"
   let headerRight = document.createElement("div");
-  headerRight.classList.add(...["col-4", "d-flex", "justify-content-end"]);
+  headerRight.classList.add(...["col-2", "d-flex", "justify-content-end"]);
   let closeBtn = document.createElement("button");
   closeBtn.id = "closebtn";
   closeBtn.type = "button";
@@ -496,7 +521,7 @@ function buildLoginFormElements() {
   loginFormEmailError.classList.add(...["error", "text-danger"]);
 
   loginFormEmailInput.setAttribute("name", "email");
-  loginFormEmailInput.setAttribute("required", "");
+  loginFormEmailInput.setAttribute("required", ""); // RegD
   loginFormEmailInput.setAttribute("pattern", String(re));
   loginFormEmailInput.setAttribute("placeholder", "janedoe@example.com");
   loginFormEmailInput.type = "email";
@@ -513,7 +538,7 @@ function buildLoginFormElements() {
   loginFormPasswordInput.type = "password";
 
   loginFormPasswordLabel.innerText = "Password";
-  loginFormPasswordLabel.classList.add("mt-2");
+  //loginFormPasswordLabel.classList.add("mt-2");
   loginFormPasswordLabel.setAttribute("for", "login-password");
 
   let loginFormCheckBoxContainer = document.createElement("div");
@@ -522,10 +547,13 @@ function buildLoginFormElements() {
   loginFormCheckBoxInput.name = "remember-me";
   loginFormCheckBoxInput.value = "0";
   loginFormCheckBoxInput.checked = false;
+  loginFormCheckBoxInput.classList.add("form-check-input");
+  loginFormCheckBoxContainer.classList.add("form-check");
+  // form-check-input
 
   loginFormCheckBoxLabel.htmlFor = "remember-me";
   loginFormCheckBoxLabel.innerText = "Remember me";
-  loginFormCheckBoxLabel.style.paddingLeft = "5px";
+  loginFormCheckBoxLabel.classList.add("form-check-label");
   loginFormCheckBoxContainer.appendChild(loginFormCheckBoxInput);
   loginFormCheckBoxContainer.appendChild(loginFormCheckBoxLabel);
 
@@ -539,7 +567,7 @@ function buildLoginFormElements() {
 
   loginFormSubmitBtn.type = "submit";
   loginFormSubmitBtn.innerText = "login";
-  loginFormSubmitBtn.classList.add(...["login-btn"]);
+  loginFormSubmitBtn.classList.add(...["login-btn", "mb-2"]);
   submitBtnRow.appendChild(loginFormSubmitBtn);
 
   // Appending
@@ -551,6 +579,13 @@ function buildLoginFormElements() {
   loginFormPasswordInputBox.appendChild(loginFormPasswordError);
   loginFormFunctionalitiesBox.appendChild(loginFormCheckBoxContainer);
   loginFormFunctionalitiesBox.appendChild(loginFormForgetLogin);
+
+  let registerDiv = document.createElement("div");
+  let registerStatement = document.createElement("p");
+  registerStatement.textContent = "Not a member?";
+  registerDiv.classList.add("justify-content-center", "d-flex");
+  registerDiv.appendChild(registerStatement);
+  registerDiv.appendChild(registerLink);
   //
   loginForm.appendChild(loginFormTitle);
   loginForm.appendChild(loginFormEmailInputBox);
@@ -558,8 +593,33 @@ function buildLoginFormElements() {
   loginForm.appendChild(loginFormFunctionalitiesBox);
   loginForm.appendChild(loginFormForgetLogin);
   loginForm.appendChild(submitBtnRow);
+  loginForm.appendChild(registerDiv);
 
   //console.log(loginForm);
+}
+
+function check() {
+  loginFormCheckBoxInput.value = "1";
+  document.getElementById("remember-me").checked = true;
+}
+
+function uncheck() {
+  loginFormCheckBoxInput.value = "0";
+  document.getElementById("remember-me").checked = false;
+}
+
+function rememberMeOnChange() {
+  if (loginFormCheckBoxInput.value === "0") {
+    check();
+    // loginFormCheckBoxInput.removeAttribute("unchecked");
+    // loginFormCheckBoxInput.setAttribute("checked", "");
+    //
+  } else if (loginFormCheckBoxInput.value === "1") {
+    uncheck();
+    // loginFormCheckBoxInput.setAttribute("unchecked", "");
+    //console.log(loginFormCheckBoxInput);
+  }
+  console.log(loginFormCheckBoxInput.value);
 }
 
 // Handler Functions //RegB
@@ -607,11 +667,12 @@ function handleMyPerschLink(event) {
   createRightNavLinkHeader("<h4>Access your account</h4>");
   let loginContainer = document.createElement("div");
   loginContainer.classList.add(...["container"]);
-  let registerForm = document.createElement("form");
+  // let registerContainer = document.createElement("div");
+  // registerContainer.classList.add(...["container"]);
   loginContainer.appendChild(buildRightFormLogin());
-  registerForm.appendChild(buildRightFormReg());
+  // registerContainer.appendChild(buildRightFormReg());
   rightNavLinkContent.appendChild(loginContainer);
-  rightNavLinkContent.appendChild(registerForm);
+  // rightNavLinkContent.appendChild(registerContainer);
 
   //console.log(rightNavLinkContent[0]);
 }
@@ -651,6 +712,7 @@ function handleFixNavScroll(event) {
 
 function handleClickOutsideLeft(event) {
   event.preventDefault();
+
   const allowed = [
     "menNavLink",
     "womenNavLink",
@@ -777,7 +839,6 @@ loginFormEmailInput.addEventListener("keyup", () => {
     setSuccess(email);
   }
 });
-
 loginFormPasswordInput.addEventListener("keyup", () => {
   //console.log(2);
   const password = document.getElementById("login-password");
@@ -790,37 +851,28 @@ loginFormPasswordInput.addEventListener("keyup", () => {
     setSuccess(password);
   }
 });
-
 loginFormSubmitBtn.addEventListener("click", () => {
   //console.log("true");
   validateLoginFormInputs();
 });
 
-function check() {
-  document.getElementById("remember-me").checked = true;
-}
+loginFormCheckBoxInput.addEventListener("click", (e) => {
+  // THIS DOESNT WORK AND IT PISSES ME OFF
 
-function uncheck() {
-  document.getElementById("remember-me").checked = false;
-}
-
-loginFormCheckBoxInput.addEventListener("click", () => {
-  if (loginFormCheckBoxInput.value === "0") {
-    loginFormCheckBoxInput.value = "1";
-    check();
-    // loginFormCheckBoxInput.removeAttribute("unchecked");
-    // loginFormCheckBoxInput.setAttribute("checked", "");
-    //
-  } else if (loginFormCheckBoxInput.value === "1") {
-    loginFormCheckBoxInput.value = "0";
-    uncheck();
-    // loginFormCheckBoxInput.setAttribute("unchecked", "");
-
-    //console.log(loginFormCheckBoxInput.value);
-  }
-  console.log(loginFormCheckBoxInput.checked);
+  rememberMeOnChange();
 });
-loginFormCheckBoxLabel.addEventListener("click", () => {});
+
+loginFormCheckBoxLabel.addEventListener("click", (e) => {
+  rememberMeOnChange();
+  // console.log(e.target);
+  // console.log(loginFormCheckBoxInput.checked);
+});
+
+loginFormForgetLogin.addEventListener("click", () => {
+  funnyaudio.volume = 0.1;
+  funnyaudio.play();
+  window.alert("How the hell do you forget your login info XD");
+});
 
 // Left Links
 leftNavLinkContent.addEventListener("click", handleLeftFormClose);
